@@ -7,24 +7,24 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   {{- with .Values.service.loadBalancerIP }}
-  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+  loadBalancerIP: {{ . }}
   {{- end }}
   {{- with .Values.service.externalTrafficPolicy }}
   externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy }}
   {{- end }}
   {{- with .Values.service.sessionAffinity }}
-  sessionAffinity: {{ .Values.service.sessionAffinity }}
+  sessionAffinity: {{ . }}
   {{- end }}
   {{- with .Values.service.clusterIP }}
-  clusterIP: {{ .Values.service.clusterIP }}
+  clusterIP: {{ . }}
   {{- end }}
   {{- with .Values.service.annotations }}
   annotations:
-    {{- toYaml .Values.service.annotations | nindent 4 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- with .Values.service.loadBalancerSourceRanges }}
   loadBalancerSourceRanges:
-    {{- toYaml .Values.service.loadBalancerSourceRanges | nindent 4 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
   ports:
     - port: {{ .Values.service.port }}
