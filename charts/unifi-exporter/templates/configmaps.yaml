@@ -1,0 +1,128 @@
+{{- if .Values.persistence }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "unifi-exporter.fullname" . }}-cef-fields
+  labels:
+    {{- include "unifi-exporter.labels" . | nindent 4 }}
+data:
+  cef_fields.json: |-
+{{- if .Values.persistence.configMaps.cefFields }}
+{{ .Values.persistence.configMaps.cefFields | toJson | indent 4 }}
+{{- else }}
+{{ .Files.Get "files/config/cef_severity.json" | indent 4 }}
+{{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "unifi-exporter.fullname" . }}-cef-severity
+  labels:
+    {{- include "unifi-exporter.labels" . | nindent 4 }}
+data:
+  cef_severity.json: |-
+{{- if .Values.persistence.configMaps.cefSeverity }}
+{{ .Values.persistence.configMaps.cefSeverity | toJson | indent 4 }}
+{{- else }}
+{{ .Files.Get "files/config/cef_severity.json" | indent 4 }}
+{{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "unifi-exporter.fullname" . }}-facilities
+  labels:
+    {{- include "unifi-exporter.labels" . | nindent 4 }}
+data:
+  facilities.json: |-
+{{- if .Values.persistence.configMaps.facilities }}
+{{ .Values.persistence.configMaps.facilities | toJson | indent 4 }}
+{{- else }}
+{{ .Files.Get "files/config/facilities.json" | indent 4 }}
+{{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "unifi-exporter.fullname" . }}-flow-fields
+  labels:
+    {{- include "unifi-exporter.labels" . | nindent 4 }}
+data:
+  flow_fields.json: |-
+{{- if .Values.persistence.configMaps.flowFields }}
+{{ .Values.persistence.configMaps.flowFields | toJson | indent 4 }}
+{{- else }}
+{{ .Files.Get "files/config/flow_fields.json" | indent 4 }}
+{{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "unifi-exporter.fullname" . }}-flow-label-fields
+  labels:
+    {{- include "unifi-exporter.labels" . | nindent 4 }}
+data:
+  flow_label_fields.list: |-
+{{- if .Values.persistence.configMaps.flowLabelFields }}
+{{ .Values.persistence.configMaps.flowLabelFields | join "\n" | indent 4 }}
+{{- else }}
+{{ .Files.Get "files/config/flow_label_fields.list" | indent 4 }}
+{{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "unifi-exporter.fullname" . }}-ip-protocols
+  labels:
+    {{- include "unifi-exporter.labels" . | nindent 4 }}
+data:
+  ip_protocols.json: |-
+{{- if .Values.persistence.configMaps.ipProtocols }}
+{{ .Values.persistence.configMaps.ipProtocols | toJson | indent 4 }}
+{{- else }}
+{{ .Files.Get "files/config/ip_protocols.json" | indent 4 }}
+{{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "unifi-exporter.fullname" . }}-portforward-rules
+  labels:
+    {{- include "unifi-exporter.labels" . | nindent 4 }}
+data:
+  portforward_rules.json: |-
+{{- if .Values.persistence.configMaps.portforwardRules }}
+{{ .Values.persistence.configMaps.portforwardRules | toJson | indent 4 }}
+{{- else }}
+{{ .Files.Get "files/config/portforward_rules.json" | indent 4 }}
+{{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "unifi-exporter.fullname" . }}-syslog-severity
+  labels:
+    {{- include "unifi-exporter.labels" . | nindent 4 }}
+data:
+  syslog_severity.json: |-
+{{- if .Values.persistence.configMaps.syslogSeverity }}
+{{ .Values.persistence.configMaps.syslogSeverity | toJson | indent 4 }}
+{{- else }}
+{{ .Files.Get "files/config/syslog_severity.json" | indent 4 }}
+{{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "unifi-exporter.fullname" . }}-tcp-flags
+  labels:
+    {{- include "unifi-exporter.labels" . | nindent 4 }}
+data:
+  tcp_flags.list: |-
+{{- if .Values.persistence.configMaps.tcpFlags }}
+{{ .Values.persistence.configMaps.tcpFlags | join "\n" | indent 4 }}
+{{- else }}
+{{ .Files.Get "files/config/tcp_flags.list" | indent 4 }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,10 @@
+{
+    "0": "cef_version",
+    "1": "device_vendor",
+    "2": "device_product",
+    "3": "device_version",
+    "4": "device_event_class_id",
+    "5": "event_name",
+    "6": "severity",
+    "7": "message"
+}

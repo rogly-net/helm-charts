@@ -1,0 +1,23 @@
+1. To check the status of your deployment:
+   kubectl get all -n {{ .Release.Namespace }}
+
+2. To see logs for the exporter:
+   kubectl logs -n {{ .Release.Namespace }} {{ if eq .Values.deploymentMode "statefulset" }}statefulset{{ else }}deployment{{ end }}/{{ include "unifi-exporter.fullname" $ }}
+
+3. To run the Helm test:
+   helm test {{ .Release.Name }} --namespace {{ .Release.Namespace }}
+
+4. To troubleshoot PersistentVolumeClaims:
+   If you encounter issues with unbound PersistentVolumeClaims, check their status:
+   kubectl get pvc -n {{ .Release.Namespace }}
+
+5. To verify ConfigMap contents:
+   kubectl describe configmap -n {{ .Release.Namespace }} {{ include "unifi-exporter.fullname" $ }}
+
+6. To check the LoadBalancer IP and port (if applicable):
+   kubectl get svc -n {{ .Release.Namespace }} {{ include "unifi-exporter.fullname" $ }} -o jsonpath="{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}"
+
+7. Additional Notes:
+   - This chart deploys the UniFi Exporter, which does not expose a web interface.
+   - Ensure that the exporter is correctly configured to send metrics to your monitoring system.
+   - Use the logs to verify that the exporter is functioning as expected.

@@ -1,0 +1,42 @@
+{{- if eq .Values.deploymentMode "deployment" }}
+{{- with .Values.persistence }}
+  {{- if .database.enabled }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "unifi-exporter.fullname" $ }}-database
+  labels:
+    {{- include "unifi-exporter.labels" $ | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .database.size }}
+  {{- if .database.storageClass }}
+  storageClassName: {{ .database.storageClass }}
+  {{- end }}
+  {{- end }}
+  {{- with .extraVolumes }}
+    {{- range $name, $volume := . }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "unifi-exporter.fullname" $ }}-{{ $name }}
+  labels:
+    {{- include "unifi-exporter.labels" $ | nindent 4 }}
+spec:
+  accessModes:
+    - {{ $volume.accessMode }}
+  resources:
+    requests:
+      storage: {{ $volume.size }}
+  {{- if $volume.storageClass }}
+  storageClassName: {{ $volume.storageClass }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}

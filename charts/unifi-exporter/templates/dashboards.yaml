@@ -1,0 +1,22 @@
+{{- if .Values.dashboards.enabled }}
+{{ range $path, $_ :=  .Files.Glob "files/dashboards/**.json" }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ base $path | replace ".json" "" }}-dashboard
+  {{- if and $.Values.dashboards.namespace (ne $.Values.dashboards.namespace "") }}
+  namespace: {{ $.Values.dashboards.namespace }}
+  {{- end }}
+  labels:
+    {{- include "unifi-exporter.labels" $ | nindent 4 }}
+    {{ $.Values.dashboards.label }}: {{ $.Values.dashboards.labelValue | quote }}
+  {{- if and $.Values.dashboards.folderAnnotation (ne $.Values.dashboards.folderAnnotation "") }}
+  annotations:
+    {{ $.Values.dashboards.folderAnnotation }}: {{ $.Values.dashboards.folderValue }}
+  {{- end }}
+data:
+{{ base $path | indent 2 }}: |-
+{{ $.Files.Get $path | indent 4 }}
+{{- end }}
+{{- end }}

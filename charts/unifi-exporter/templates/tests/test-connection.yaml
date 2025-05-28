@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "unifi-exporter.fullname" $ }}-test-connection"
+  labels:
+    {{- include "unifi-exporter.labels" $ | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: liveness-checker
+      image: busybox:latest
+      command: ['sh', '-c']
+      args:
+        - >
+          {{- if .Values.livenessProbe }}
+          {{- toYaml .Values.livenessProbe | nindent 10 }}
+          {{- else }}
+          nc -z -u 127.0.0.1 {{ .Values.service.port | quote }}
+          {{- end }}
+  restartPolicy: Never

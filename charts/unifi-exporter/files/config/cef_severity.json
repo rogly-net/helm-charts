@@ -1,0 +1,13 @@
+{
+    "0": "emergency",
+    "1": "alert",
+    "2": "alert",
+    "3": "critical",
+    "4": "error",
+    "5": "warning",
+    "6": "warning",
+    "7": "notice",
+    "8": "informational",
+    "9": "informational",
+    "10": "debug"
+}

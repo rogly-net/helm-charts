@@ -1,0 +1,270 @@
+# Default values for unifi-exporter.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Set the deployment mode for the chart.
+# Options are "deployment" or "statefulset".
+# Note: For "deployment" If you are using persistent storage the storage class must support ReadWriteMany. (See persistence section below)
+deploymentMode: "deployment"
+
+# Configuration for the unifi-exporter application.
+config:
+  logLevel: informational
+  timezone: UTC
+  loki:
+    url: http://loki:3100
+  geoip:
+    accountId: ""   # Required for GeoIP lookups.
+    licenseKey: ""  # Required for GeoIP lookups.
+
+# This section is for configuring the Grafana dashboards.
+# If you are using the Grafana sidecar, you can enable this section to automatically create dashboards.
+dashboards:
+  enabled: false
+  namespace: "" # Optional: If set, the dashboards will be created in this namespace.
+  label: grafana_dashboard
+  labelValue: "1"
+  # If your grafana sidecar is configured to use folderAnnotations, you can set the folder annotation and value here.
+  folderAnnotation: ""
+  folderValue: ""
+  
+# This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+# Note: Ignored if HPA is enabled.
+replicaCount: 2
+
+# Update strategy for the deployment.
+# More information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#updating-a-deployment
+updateStrategy:
+  type: RollingUpdate
+
+# This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+image:
+  repository: ghcr.io/rogly-net/unifi-exporter
+  # This sets the pull policy for images.
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+# This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+imagePullSecrets: []
+# This is to override the chart name.
+nameOverride: ""
+fullnameOverride: ""
+
+# This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# This is for setting Kubernetes Annotations to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+podAnnotations: {}
+# This is for setting Kubernetes Labels to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
+service:
+  # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  type: LoadBalancer
+  # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
+  port: 5514
+  
+  # # This sets the load balancer IP more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer-ip
+  # loadBalancerIP: "192.168.1.1"
+  # # This sets the load balancer source ranges more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#load-balancer-source-ranges
+  # loadBalancerSourceRanges: []
+  # # This sets the external traffic policy more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#external-traffic-policy
+  # externalTrafficPolicy: Cluster
+  # # This sets the session affinity more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#session-affinity
+  # sessionAffinity: None
+  # # This sets the cluster IP more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#cluster-ip
+  # clusterIP: ""
+  # # This sets the service annotations more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#annotations
+  # annotations: {}
+
+# Extra environment variables to be passed to the container.
+extraEnv: []
+
+# This is for setting up the resources for the container more information can be found here: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+# This is required for Horizontal Pod Autoscaling (HPA) to work.
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+# This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+livenessProbe: {}
+# livenessProbe:
+#     command:
+#     - nc
+#     - -z
+#     - -u
+#     - 127.0.0.1
+#     - 5514
+readinessProbe: {}
+#   exec:
+#     command:
+#     - nc
+#     - -z
+#     - -u
+#     - 127.0.0.1
+#     - 5514
+
+# This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
+# Enabling this requires resources to be set for the container.
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+
+# Persistence configuration for the application.
+# To disiable persistence, replace the entire `persistence` block with an empty object `{}`.
+# persistence: {}
+persistence:
+  database:
+    enabled: true # Set to false to disable persistence for the database directory.
+    size: 2Gi
+    storageClass: ""
+  configMaps:
+    # Maps CEF Field Numbers to their names.
+    cefFields: {}
+    # cefFields: {
+    #   "0": "cef_version",
+    #   "1": "device_vendor",
+    #   "2": "device_product",
+    #   ... (and so on for all fields)   
+    # }
+    # Maps CEF Severity Numbers to normalized severity levels.
+    cefSeverity: {}
+    # cefSeverity: {
+    #   "0": "emergency",
+    #   "1": "alert",
+    #   "2": "alert",
+    #   ... (and so on for all severity levels)
+
+    # Maps CEF Facility Numbers to their names.
+    facilities: {}
+    # facilities: {
+    #   "0": "kernel",
+    #   "1": "user-level",
+    #   "2": "mail",
+    #   ... (and so on for all facilities)
+    # }
+
+    # Maps Flow Log short names to their full names.
+    flowFields: {}
+    # flowFields: {
+    #   "SRC": "source_ip",
+    #   "DST": "destination_ip",
+    #   "SPT": "source_port",
+    #   ... (and so on for all fields)
+    # }
+
+    # List of Flow Log fields to add as Loki Labels.
+    flowLabelFields: []
+    # flowLabelFields:
+    # - protocol
+    # - source_interface
+    # - destination_interface
+    # - acknowledgment_marker
+
+    # Maps IP Protocol Numbers to their names.
+    ipProtocols: {}
+    # ipProtocols: {
+    #   "0": "HOPOPT",
+    #   "1": "ICMP",
+    #   "2": "IGMP",
+    #   ... (and so on for all protocols)
+    # }
+
+    ########  Note: This should be customized based on your UniFi setup.   ########
+    # Maps Truncated PortForward Rules to their full names.
+    portforwardRules: {}
+    # portforwardRules: {
+    #   "Tor": "torrent",
+    #   "NGI": "nginx"
+    # }
+
+    # Maps Syslog Facility Numbers to their names.
+    syslogSeverity: {}
+    # syslogSeverity: {
+    #   "0": "emergency",
+    #   "1": "alert",
+    #   "2": "critical",
+    #   ... (and so on for all severity levels)
+    # }
+    
+    # List of TCP Flags to look for in Flow Logs.
+    tcpFlags: []
+    # tcpFlags: 
+    # - SYN
+    # - ACK
+    # - FIN
+    # ... (and so on for all flags)
+  
+  # Extra VolumeMounts to add to the container.
+  extraVolumeMounts: []
+  # Example:
+  # - name: my-volume
+  #   mountPath: /path/to/mount
+  #   subPath: optional-subpath
+
+  # Extra Volumes to add to the pod.
+  extraVolumes: []
+  # Example:
+  # - name: my-volume
+  #   persistentVolumeClaim:
+  #     claimName: my-pvc
+
+  # Extra VolumeClaimTemplates to add to the StatefulSet. (Only used if deploymentMode is set to "statefulset")
+  extraVolumeClaimTemplates: []
+  # Example:
+  # - metadata:
+  #     name: my-volume
+  #   spec:
+  #     accessModes: ["ReadWriteOnce"]
+  #     storageClassName: "ceph-block"
+  #     resources:
+  #       requests:
+  #         storage: 1Gi
+
+# Node selector for the pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+nodeSelector: {}
+
+# Tolerations for the pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# Affinity rules for the pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
+affinity: {}

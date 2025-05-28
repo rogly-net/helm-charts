@@ -1,0 +1,212 @@
+{{- if eq .Values.deploymentMode "statefulset" }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "unifi-exporter.fullname" $ }}
+  labels:
+    {{- include "unifi-exporter.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "unifi-exporter.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "unifi-exporter.fullname" $ }}
+  {{- with .Values.updateStrategy }}
+  updateStrategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "unifi-exporter.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "unifi-exporter.serviceAccountName" . }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: syslog
+              containerPort: {{ .Values.service.port }}
+              protocol: UDP
+          {{- if .Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- else }}
+          livenessProbe:
+            exec:
+              command:
+              - nc
+              - -z
+              - -u
+              - 127.0.0.1
+              - {{ .Values.service.port | quote}}
+          {{- end }}
+          {{- if .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- else }}
+          readinessProbe:
+            exec:
+              command:
+              - nc
+              - -z
+              - -u
+              - 127.0.0.1
+              - {{ .Values.service.port | quote}}
+          {{- end }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          env:
+            - name: PORT
+              value: {{ .Values.service.port | quote }}
+            - name: LOG_LEVEL
+              value: {{ .Values.config.logLevel | quote }}
+            - name: TZ
+              value: {{ .Values.config.timezone | quote }}
+            - name: LOKI_URL
+              value: {{ .Values.config.loki.url | quote }}
+            {{- if .Values.config.geoip.accountId }}
+            - name: GEOIP_ACCOUNT_ID
+              value: {{ .Values.config.geoip.accountId | quote }}
+            {{- end }}
+            {{- if .Values.config.geoip.licenseKey }}
+            - name: GEOIP_LICENSE_KEY
+              value: {{ .Values.config.geoip.licenseKey | quote }}
+            {{- end }}
+            {{ with .Values.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- with .Values.persistence }}
+          volumeMounts:
+            - name: cef-fields
+              mountPath: /app/config/cef_fields.json
+              subPath: cef_fields.json
+              readOnly: true
+            - name: cef-severity
+              mountPath: /app/config/cef_severity.json
+              subPath: cef_severity.json
+              readOnly: true
+            - name: facilities
+              mountPath: /app/config/facilities.json
+              subPath: facilities.json
+              readOnly: true
+            - name: flow-fields
+              mountPath: /app/config/flow_fields.json
+              subPath: flow_fields.json
+              readOnly: true
+            - name: flow-label-fields
+              mountPath: /app/config/flow_label_fields.list
+              subPath: flow_label_fields.list
+              readOnly: true
+            - name: ip-protocols
+              mountPath: /app/config/ip_protocols.json
+              subPath: ip_protocols.json
+              readOnly: true
+            - name: portforward-rules
+              mountPath: /app/config/portforward_rules.json
+              subPath: portforward_rules.json
+              readOnly: true
+            - name: syslog-severity
+              mountPath: /app/config/syslog_severity.json
+              subPath: syslog_severity.json
+              readOnly: true
+            - name: tcp-flags
+              mountPath: /app/config/tcp_flags.list
+              subPath: tcp_flags.list
+              readOnly: true
+            {{- if .database.enabled }}
+            - name: database
+              mountPath: /app/database
+            {{- end }}
+          {{- with .extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        {{- end }}
+      {{- with .Values.persistence  }}
+      volumes:
+        - name: cef-fields
+          configMap:
+            name: {{ include "unifi-exporter.fullname" $ }}-cef-fields
+        - name: cef-severity
+          configMap:
+            name: {{ include "unifi-exporter.fullname" $ }}-cef-severity
+        - name: facilities
+          configMap:
+            name: {{ include "unifi-exporter.fullname" $ }}-facilities
+        - name: flow-fields
+          configMap:
+            name: {{ include "unifi-exporter.fullname" $ }}-flow-fields
+        - name: flow-label-fields
+          configMap:
+            name: {{ include "unifi-exporter.fullname" $ }}-flow-label-fields
+        - name: ip-protocols
+          configMap:
+            name: {{ include "unifi-exporter.fullname" $ }}-ip-protocols
+        - name: portforward-rules
+          configMap:
+            name: {{ include "unifi-exporter.fullname" $ }}-portforward-rules
+        - name: syslog-severity
+          configMap:
+            name: {{ include "unifi-exporter.fullname" $ }}-syslog-severity
+        - name: tcp-flags
+          configMap:
+            name: {{ include "unifi-exporter.fullname" $ }}-tcp-flags
+      {{- end }}
+      {{- with .extraVolumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  {{- with .Values.persistence  }}
+  volumeClaimTemplates:
+    {{- if .database.enabled }}
+    - metadata:
+        name: database
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        {{- if .database.storageClass }}
+        storageClassName: {{ .database.storageClass | quote }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .database.size | default "2Gi" }}
+    {{- end }}
+  {{- end }}
+  {{- with .extraVolumeClaimTemplates }}
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
+{{- end }}

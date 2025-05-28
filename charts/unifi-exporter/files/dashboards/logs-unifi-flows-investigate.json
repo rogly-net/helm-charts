@@ -1,0 +1,1446 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 27,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 9,
+      "panels": [],
+      "title": "Insights",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 1,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "orientation": "vertical",
+        "showValue": "auto",
+        "stacking": "normal",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "Time",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "sum(count_over_time({job=\"$job\", service_name=\"$service_name\", action=~\"$action\", protocol=~\"$protocol\", source_zone=~\"$source_zone\", source_interface=~\"$source_interface\", destination_zone=~\"$destination_zone\", destination_interface=~\"$destination_interface\"} | json source_ip=\"source_ip\", source_port=\"source_port\", destination_ip=\"destination_ip\", destination_port=\"destination_port\" | source_ip =~ `^$source_ip$` | source_port =~ `^$source_port$` | destination_ip =~ `^$destination_ip$` | destination_port =~ `^$destination_port$` [$__auto]))",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "Flow Volume",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "transparent",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 23,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "id": 8,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": false,
+          "showAttribution": false,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": false
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "fixed": "purple"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "source"
+            },
+            "name": "Source",
+            "tooltip": false,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "fixed": "blue"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "destination"
+            },
+            "name": "Destination",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "fit",
+          "lastOnly": false,
+          "lat": 0,
+          "layer": "Source",
+          "lon": 0,
+          "zoom": 18
+        }
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "{job=\"$job\", service_name=\"$service_name\", action=~\"$action\", protocol=~\"$protocol\", source_zone=~\"$source_zone\", source_interface=~\"$source_interface\", destination_zone=~\"$destination_zone\", destination_interface=~\"$destination_interface\", source_country=~\".+\"} | json source_ip=\"source_ip\", source_port=\"source_port\", destination_ip=\"destination_ip\", destination_port=\"destination_port\", latitude=\"source_latitude\", longitude=\"source_longitude\" | source_ip =~ `^$source_ip$` | source_port =~ `^$source_port$` | destination_ip =~ `^$destination_ip$` | destination_port =~ `^$destination_port$` | latitude =~ `.+` | longitude =~ `.+`",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "source",
+          "step": "$smooth"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "{job=\"$job\", service_name=\"$service_name\", action=~\"$action\", protocol=~\"$protocol\", source_zone=~\"$source_zone\", source_interface=~\"$source_interface\", destination_zone=~\"$destination_zone\", destination_interface=~\"$destination_interface\", destination_country=~\".+\"} | json source_ip=\"source_ip\", source_port=\"source_port\", destination_ip=\"destination_ip\", destination_port=\"destination_port\", latitude=\"destination_latitude\", longitude=\"destination_longitude\" | source_ip =~ `^$source_ip$` | source_port =~ `^$source_port$` | destination_ip =~ `^$destination_ip$` | destination_port =~ `^$destination_port$` | latitude =~ `.+` | longitude =~ `.+`",
+          "hide": false,
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "destination",
+          "step": "$smooth"
+        }
+      ],
+      "title": "",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "delimiter": ",",
+            "source": "labels"
+          }
+        },
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "number",
+                "targetField": "latitude"
+              },
+              {
+                "destinationType": "number",
+                "targetField": "longitude"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 12,
+        "y": 9
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "sum(count_over_time({job=\"$job\", service_name=\"$service_name\", action=~\"$action\", protocol=~\"$protocol\", source_zone=~\"$source_zone\", source_interface=~\"$source_interface\", destination_zone=~\"$destination_zone\", destination_interface=~\"$destination_interface\"} | json source_ip=\"source_ip\", source_port=\"source_port\", destination_ip=\"destination_ip\", destination_port=\"destination_port\" | source_ip =~ `^$source_ip$` | source_port =~ `^$source_port$` | destination_ip =~ `^$destination_ip$` | destination_port =~ `^$destination_port$` [$__auto]))",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "Total Flows",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 16,
+        "y": 9
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "sum(count_over_time({job=\"$job\", service_name=\"$service_name\", action=\"permit\", protocol=~\"$protocol\", source_zone=~\"$source_zone\", source_interface=~\"$source_interface\", destination_zone=~\"$destination_zone\", destination_interface=~\"$destination_interface\"} | json source_ip=\"source_ip\", source_port=\"source_port\", destination_ip=\"destination_ip\", destination_port=\"destination_port\" | source_ip =~ `^$source_ip$` | source_port =~ `^$source_port$` | destination_ip =~ `^$destination_ip$` | destination_port =~ `^$destination_port$` [$__auto]))",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "Permitted Flows",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 9
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "sum(count_over_time({job=\"$job\", service_name=\"$service_name\", action=\"deny\", protocol=~\"$protocol\", source_zone=~\"$source_zone\", source_interface=~\"$source_interface\", destination_zone=~\"$destination_zone\", destination_interface=~\"$destination_interface\"} | json source_ip=\"source_ip\", source_port=\"source_port\", destination_ip=\"destination_ip\", destination_port=\"destination_port\" | source_ip =~ `^$source_ip$` | source_port =~ `^$source_port$` | destination_ip =~ `^$destination_ip$` | destination_port =~ `^$destination_port$` [$__auto]))",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "Denied Flows",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Value/"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 3,
+        "x": 12,
+        "y": 14
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "sum by(source_zone) (count_over_time({job=\"$job\", service_name=\"$service_name\", action=~\"$action\", protocol=~\"$protocol\", source_zone=~\"$source_zone\", source_interface=~\"$source_interface\", destination_zone=~\"$destination_zone\", destination_interface=~\"$destination_interface\"} | json source_ip=\"source_ip\", source_port=\"source_port\", destination_ip=\"destination_ip\", destination_port=\"destination_port\" | source_ip =~ `^$source_ip$` | source_port =~ `^$source_port$` | destination_ip =~ `^$destination_ip$` | destination_port =~ `^$destination_port$` [$__auto]))",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "Source Zones",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Value/"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 3,
+        "x": 15,
+        "y": 14
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "sum by(source_interface) (count_over_time({job=\"$job\", service_name=\"$service_name\", action=~\"$action\", protocol=~\"$protocol\", source_zone=~\"$source_zone\", source_interface=~\"$source_interface\", destination_zone=~\"$destination_zone\", destination_interface=~\"$destination_interface\"} | json source_ip=\"source_ip\", source_port=\"source_port\", destination_ip=\"destination_ip\", destination_port=\"destination_port\" | source_ip =~ `^$source_ip$` | source_port =~ `^$source_port$` | destination_ip =~ `^$destination_ip$` | destination_port =~ `^$destination_port$` [$__auto]))",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "Source Interfaces",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Value/"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 3,
+        "x": 18,
+        "y": 14
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "sum by(destination_zone) (count_over_time({job=\"$job\", service_name=\"$service_name\", action=~\"$action\", protocol=~\"$protocol\", source_zone=~\"$source_zone\", source_interface=~\"$source_interface\", destination_zone=~\"$destination_zone\", destination_interface=~\"$destination_interface\"} | json source_ip=\"source_ip\", source_port=\"source_port\", destination_ip=\"destination_ip\", destination_port=\"destination_port\" | source_ip =~ `^$source_ip$` | source_port =~ `^$source_port$` | destination_ip =~ `^$destination_ip$` | destination_port =~ `^$destination_port$` [$__auto]))",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "Destination Zones",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Value/"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 3,
+        "x": 21,
+        "y": 14
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "sum by(destination_interface) (count_over_time({job=\"$job\", service_name=\"$service_name\", action=~\"$action\", protocol=~\"$protocol\", source_zone=~\"$source_zone\", source_interface=~\"$source_interface\", destination_zone=~\"$destination_zone\", destination_interface=~\"$destination_interface\"} | json source_ip=\"source_ip\", source_port=\"source_port\", destination_ip=\"destination_ip\", destination_port=\"destination_port\" | source_ip =~ `^$source_ip$` | source_port =~ `^$source_port$` | destination_ip =~ `^$destination_ip$` | destination_port =~ `^$destination_port$` [$__auto]))",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "Destination Interfaces",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      },
+      "id": 5,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "vertical",
+        "showValue": "auto",
+        "stacking": "normal",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "sum by(protocol) (count_over_time({job=\"$job\", service_name=\"$service_name\", action=~\"$action\", protocol=~\"$protocol\", source_zone=~\"$source_zone\", source_interface=~\"$source_interface\", destination_zone=~\"$destination_zone\", destination_interface=~\"$destination_interface\"} | json source_ip=\"source_ip\", source_port=\"source_port\", destination_ip=\"destination_ip\", destination_port=\"destination_port\" | source_ip =~ `^$source_ip$` | source_port =~ `^$source_port$` | destination_ip =~ `^$destination_ip$` | destination_port =~ `^$destination_port$` [$__auto]))",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "Protocols",
+      "type": "barchart"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 32
+      },
+      "id": 10,
+      "panels": [],
+      "title": "Logs",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 33,
+        "w": 24,
+        "x": 0,
+        "y": 33
+      },
+      "id": 11,
+      "options": {
+        "dedupStrategy": "exact",
+        "enableInfiniteScrolling": false,
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": true,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "{job=\"$job\", service_name=\"$service_name\", action=~\"$action\", protocol=~\"$protocol\", source_zone=~\"$source_zone\", source_interface=~\"$source_interface\", destination_zone=~\"$destination_zone\", destination_interface=~\"$destination_interface\"} | json | source_ip =~ `^$source_ip$` | source_port =~ `^$source_port$` | destination_ip =~ `^$destination_ip$` | destination_port =~ `^$destination_port$`",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "",
+      "transparent": true,
+      "type": "logs"
+    }
+  ],
+  "preload": false,
+  "schemaVersion": 41,
+  "tags": [
+    "Loki",
+    "Unifi"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "Loki",
+          "value": "P8E80F9AEF21F6940"
+        },
+        "label": "Datasource",
+        "name": "datasource",
+        "options": [],
+        "query": "loki",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
+      },
+      {
+        "auto": true,
+        "auto_count": 40,
+        "auto_min": "1s",
+        "current": {
+          "text": "$__auto",
+          "value": "$__auto"
+        },
+        "label": "Smooth",
+        "name": "smooth",
+        "options": [
+          {
+            "selected": false,
+            "text": "1s",
+            "value": "1s"
+          },
+          {
+            "selected": false,
+            "text": "5s",
+            "value": "5s"
+          },
+          {
+            "selected": false,
+            "text": "10s",
+            "value": "10s"
+          },
+          {
+            "selected": false,
+            "text": "15s",
+            "value": "15s"
+          },
+          {
+            "selected": false,
+            "text": "30s",
+            "value": "30s"
+          },
+          {
+            "selected": false,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": false,
+            "text": "10m",
+            "value": "10m"
+          },
+          {
+            "selected": false,
+            "text": "30m",
+            "value": "30m"
+          },
+          {
+            "selected": false,
+            "text": "1h",
+            "value": "1h"
+          },
+          {
+            "selected": false,
+            "text": "6h",
+            "value": "6h"
+          },
+          {
+            "selected": false,
+            "text": "12h",
+            "value": "12h"
+          },
+          {
+            "selected": false,
+            "text": "1d",
+            "value": "1d"
+          },
+          {
+            "selected": false,
+            "text": "7d",
+            "value": "7d"
+          },
+          {
+            "selected": false,
+            "text": "14d",
+            "value": "14d"
+          },
+          {
+            "selected": false,
+            "text": "30d",
+            "value": "30d"
+          }
+        ],
+        "query": "1s,5s,10s,15s,30s,1m,10m,30m,1h,6h,12h,1d,7d,14d,30d",
+        "refresh": 2,
+        "type": "interval"
+      },
+      {
+        "current": {
+          "text": "unifi-exporter",
+          "value": "unifi-exporter"
+        },
+        "hide": 2,
+        "label": "Job",
+        "name": "job",
+        "query": "unifi-exporter",
+        "skipUrlSync": true,
+        "type": "constant"
+      },
+      {
+        "current": {
+          "text": "firewall",
+          "value": "firewall"
+        },
+        "description": "",
+        "hide": 2,
+        "label": "Service Name",
+        "name": "service_name",
+        "query": "firewall",
+        "skipUrlSync": true,
+        "type": "constant"
+      },
+      {
+        "allValue": ".*",
+        "allowCustomValue": false,
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "${datasource}"
+        },
+        "definition": "",
+        "includeAll": true,
+        "label": "Action",
+        "multi": true,
+        "name": "action",
+        "options": [],
+        "query": {
+          "label": "action",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{job=\"$job\", service_name=\"$service_name\"}",
+          "type": 1
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allValue": ".*",
+        "allowCustomValue": false,
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "${datasource}"
+        },
+        "definition": "",
+        "includeAll": true,
+        "label": "Protocol",
+        "multi": true,
+        "name": "protocol",
+        "options": [],
+        "query": {
+          "label": "protocol",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{job=\"$job\", service_name=\"$service_name\"}",
+          "type": 1
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allValue": ".*",
+        "allowCustomValue": false,
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "${datasource}"
+        },
+        "definition": "",
+        "description": "",
+        "includeAll": true,
+        "label": "Source Zone",
+        "multi": true,
+        "name": "source_zone",
+        "options": [],
+        "query": {
+          "label": "source_zone",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{job=\"$job\", service_name=\"$service_name\"}",
+          "type": 1
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allValue": ".*",
+        "allowCustomValue": false,
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "${datasource}"
+        },
+        "definition": "",
+        "description": "",
+        "includeAll": true,
+        "label": "Source Interface",
+        "multi": true,
+        "name": "source_interface",
+        "options": [],
+        "query": {
+          "label": "source_interface",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{job=\"$job\", service_name=\"$service_name\"}",
+          "type": 1
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": ".*",
+          "value": ".*"
+        },
+        "description": "Wildcard: .*",
+        "label": "Source IP",
+        "name": "source_ip",
+        "options": [
+          {
+            "selected": true,
+            "text": ".*",
+            "value": ".*"
+          }
+        ],
+        "query": ".*",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": ".*",
+          "value": ".*"
+        },
+        "description": "Wildcard: .*",
+        "label": "Source Port",
+        "name": "source_port",
+        "options": [
+          {
+            "selected": true,
+            "text": ".*",
+            "value": ".*"
+          }
+        ],
+        "query": ".*",
+        "type": "textbox"
+      },
+      {
+        "allValue": ".*",
+        "allowCustomValue": false,
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "${datasource}"
+        },
+        "definition": "",
+        "description": "",
+        "includeAll": true,
+        "label": "Destination Zone",
+        "multi": true,
+        "name": "destination_zone",
+        "options": [],
+        "query": {
+          "label": "destination_zone",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{job=\"$job\", service_name=\"$service_name\"}",
+          "type": 1
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allValue": ".*",
+        "allowCustomValue": false,
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "${datasource}"
+        },
+        "definition": "",
+        "description": "",
+        "includeAll": true,
+        "label": "Destination Interface",
+        "multi": true,
+        "name": "destination_interface",
+        "options": [],
+        "query": {
+          "label": "destination_interface",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{job=\"$job\", service_name=\"$service_name\"}",
+          "type": 1
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": ".*",
+          "value": ".*"
+        },
+        "description": "Wildcard: .*",
+        "label": "Destination IP",
+        "name": "destination_ip",
+        "options": [
+          {
+            "selected": true,
+            "text": ".*",
+            "value": ".*"
+          }
+        ],
+        "query": ".*",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": ".*",
+          "value": ".*"
+        },
+        "description": "Wildcard: .*",
+        "label": "Destination Port",
+        "name": "destination_port",
+        "options": [
+          {
+            "selected": true,
+            "text": ".*",
+            "value": ".*"
+          }
+        ],
+        "query": ".*",
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Logs / Unifi / Flows / Investigate",
+  "uid": "logs-unifi-flows-investigate",
+  "version": 1
+}
