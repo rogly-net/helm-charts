@@ -50,7 +50,7 @@ For a full list of configurable options, refer to the [`values.yaml`](https://gi
 
 Apply the customizations: 
 ```bash
-helm upgrade --install --namespace <namespace> <release-name> rogly-net/unifi-exporter --values values.yaml
+helm upgrade --install  <release-name> rogly-net/unifi-exporter --namespace <namespace> --values values.yaml
 ```
 
 ## Uninstallation
