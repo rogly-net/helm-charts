@@ -1,6 +1,6 @@
 # UniFi Exporter Helm Chart
 
-This Helm chart deploys the UniFi Exporter, a tool designed to export metrics from UniFi devices for monitoring purposes. The exporter does not expose a web interface but sends metrics to a configured monitoring system.
+This Helm chart deploys [UniFi Exporter](https://github.com/rogly-net/unifi-exporter), a tool designed to export metrics from UniFi devices for monitoring purposes. The exporter does not expose a web interface but sends metrics to a configured monitoring system.
 
 ## Prerequisites
 
