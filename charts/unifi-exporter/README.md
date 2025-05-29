@@ -19,12 +19,12 @@ This Helm chart deploys [UniFi Exporter](https://github.com/rogly-net/unifi-expo
 
 2. Install the chart:
    ```bash
-   helm install <release-name> rogly-net/unifi-exporter --namespace <namespace>
+   helm install test rogly-net/unifi-exporter --namespace observability
    ```
 
 3. Verify the deployment:
    ```bash
-   helm test <release-name> --namespace <namespace>
+   helm test test --namespace observability
    ```
 
 ## Customizing The Installation
@@ -50,12 +50,12 @@ For a full list of configurable options, refer to the [`values.yaml`](https://gi
 
 Apply the customizations: 
 ```bash
-helm upgrade --install  <release-name> rogly-net/unifi-exporter --namespace <namespace> --values values.yaml
+helm upgrade --install  test rogly-net/unifi-exporter --namespace observability --values values.yaml
 ```
 
 ## Uninstallation
 
 To uninstall the chart:
 ```bash
-helm uninstall <release-name> --namespace <namespace>
+helm uninstall test --namespace observability
 ```
