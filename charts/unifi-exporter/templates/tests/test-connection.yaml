@@ -16,6 +16,6 @@ spec:
           {{- if .Values.livenessProbe }}
           {{- toYaml .Values.livenessProbe | nindent 10 }}
           {{- else }}
-          nc -z -u 127.0.0.1 {{ .Values.service.port | quote }}
+          nc -z -u {{ include "unifi-exporter.fullname" $ }} {{ .Values.service.port | quote }}
           {{- end }}
   restartPolicy: Never
