@@ -20,4 +20,4 @@ To uninstall the chart:
     helm uninstall <release-name>
 
 ## Charts
-- [UniFi-Exporter](https://github.com/rogly-net/helm-charts/blob/main/charts/unifi-exporter/README.md) : A Python based Loki Exporter for UniFi Controllers and Gateways
+- [UniFi-Exporter](https://github.com/rogly-net/helm-charts/tree/main/charts/unifi-exporter) : A Python based Loki Exporter for UniFi Controllers and Gateways
