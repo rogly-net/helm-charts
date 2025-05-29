@@ -28,7 +28,7 @@ This Helm chart deploys [UniFi Exporter](https://github.com/rogly-net/unifi-expo
 
 ## Configuration
 
-The chart can be customized using the `values.yaml` file. Below are some key configuration options:
+The chart can be customized using the [`values.yaml`](https://github.com/rogly-net/helm-charts/blob/main/charts/unifi-exporter/values.yaml) file. Below are some key configuration options:
 
 | Parameter                           | Description                                                 | Default               | Valid Values                                                       | Notes
 |-------------------------------------|-------------------------------------------------------------|-----------------------|--------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
