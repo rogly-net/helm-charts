@@ -4,8 +4,8 @@
 
 # Set the deployment mode for the chart.
 # Options are "deployment" or "statefulset".
-# Note: For "deployment" If you are using persistent storage the storage class must support ReadWriteMany. (See persistence section below)
-deploymentMode: "deployment"
+# Note: For "deployment" If you are using persistent storage, the storage class must support ReadWriteMany. (See persistence section below)
+deploymentMode: "statefulset"
 
 # Configuration for the unifi-exporter application.
 config:
