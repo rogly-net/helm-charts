@@ -6,6 +6,7 @@ This Helm chart deploys [UniFi Exporter](https://github.com/rogly-net/unifi-expo
 
 - Kubernetes cluster (v1.20+ recommended)
 - Helm 3.0+
+- [UniFi Gateway](https://store.ui.com/us/en?category=all-cloud-gateways)
 - [Grafana Loki](https://github.com/grafana/loki)
 - [MaxMind GeoLite](https://www.maxmind.com/en/geolite2/signup?utm_source=kb&utm_medium=kb-link&utm_campaign=kb-create-account)
 
@@ -26,7 +27,7 @@ This Helm chart deploys [UniFi Exporter](https://github.com/rogly-net/unifi-expo
    helm test <release-name> --namespace <namespace>
    ```
 
-## Configuration
+## Customizing The Installation
 
 The chart can be customized using the [`values.yaml`](https://github.com/rogly-net/helm-charts/blob/main/charts/unifi-exporter/values.yaml) file. Below are some key configuration options:
 
@@ -46,6 +47,11 @@ The chart can be customized using the [`values.yaml`](https://github.com/rogly-n
 | `grafana.enabled`                   | Enable the Grafana SubChart                                 | `false`               | `true` \| `false`                                                  | This is recommended for *testing* UniFi Exporter <br> **Not Recommended for Production workloads**                            |
 
 For a full list of configurable options, refer to the [`values.yaml`](https://github.com/rogly-net/helm-charts/blob/main/charts/unifi-exporter/values.yaml) file.
+
+Apply the customizations: 
+```bash
+helm upgrade --install --namespace <namespace> <release-name> rogly-net/unifi-exporter --values values.yaml
+```
 
 ## Uninstallation
 
