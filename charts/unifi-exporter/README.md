@@ -42,6 +42,8 @@ The chart can be customized using the `values.yaml` file. Below are some key con
 | `persistence.database.enabled`     | Configures database persistence                                                                | Recommended to prevent hitting API limits                                                               |
 | `persistence.database.storageClass`| Configures the storage class used                                                              | Required if default storage class does not support `ReadWriteMany` and `deploymentMode` is `deployment` |
 | `persistence.configMaps`           | Customizes configuration for enrichments                                                       | Recommended to configure `persistence.configMaps.portforwardRules` to match your environment            |
+| `loki.enabled`                     | Enable the Loki Sub Chart                                                                      | Recommended for trial/testing environments                                                              |
+| `grafana.enabled`                  | Enable the Grafana Sub Chart                                                                   | Recommended for trial/testing environments                                                              |
 
 For a full list of configurable options, refer to the [`values.yaml`](https://github.com/rogly-net/helm-charts/blob/main/charts/unifi-exporter/values.yaml) file.
 
