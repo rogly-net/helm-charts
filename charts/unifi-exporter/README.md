@@ -50,7 +50,7 @@ For a full list of configurable options, refer to the [`values.yaml`](https://gi
 
 Apply the customizations: 
 ```bash
-helm upgrade --install  test rogly-net/unifi-exporter --namespace observability --values values.yaml
+helm upgrade --install test rogly-net/unifi-exporter --namespace observability --values values.yaml
 ```
 
 ## Uninstallation
