@@ -4,3 +4,14 @@ description: A Helm chart for deploying the Unifi Exporter to Kubernetes.
 type: application
 version: 1.0.0
 appVersion: "v1.0.0"
+dependencies:
+  - name: loki
+    alias: loki
+    repository: https://grafana.github.io/helm-charts
+    version: 6.30.1
+    condition: loki.enabled
+  - name: grafana
+    alias: grafana
+    repository: https://grafana.github.io/helm-charts
+    version: 9.2.1
+    condition: grafana.enabled

@@ -1,2 +1,6 @@
 # MacOS
 .DS_Store
+
+# Testing
+test.yaml
+test.sh

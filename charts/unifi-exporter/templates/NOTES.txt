@@ -21,3 +21,23 @@
    - This chart deploys the UniFi Exporter, which does not expose a web interface.
    - Ensure that the exporter is correctly configured to send metrics to your monitoring system.
    - Use the logs to verify that the exporter is functioning as expected.
+
+{{- if .Values.loki.enabled }}
+Loki Details:
+
+Internal Cluster Access
+- http://{{ .Release.Name }}-loki-gateway.svc.{{ .Release.Namespace }}.cluster.local:{{ .Values.loki.gateway.service.port }}
+{{ end }}
+
+{{- if .Values.grafana.enabled }}
+Grafana Details:
+
+Internal Cluster Access
+- http://{{ .Release.Name }}-grafana.svc.{{ .Release.Namespace }}.cluster.local:{{ .Values.grafana.service.port }}
+
+External Cluster Access
+- kubectl port-forward -n {{ .Release.Namespace }} service/{{ .Release.Name }}-grafana 3000:{{ .Values.grafana.service.port }}
+- Open in browser: http://localhost:3000
+{{ end }}
+
+

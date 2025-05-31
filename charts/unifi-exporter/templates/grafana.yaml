@@ -1,0 +1,19 @@
+{{- if .Values.grafana.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "unifi-exporter.fullname" . }}-loki-datasource
+  labels:
+    {{- include "unifi-exporter.labels" . | nindent 4 }}
+    grafana_datasource: "true"
+data:
+  datasources.yaml: |-
+    apiVersion: 1
+    datasources:
+    - name: Loki
+      type: loki
+      url: http://{{ .Release.Name }}-loki-gateway.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.loki.gateway.service.port }}
+      access: proxy
+      isDefault: true
+      editable: false
+{{ end }}
