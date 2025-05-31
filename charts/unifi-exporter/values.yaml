@@ -4,15 +4,15 @@
 
 # Set the deployment mode for the chart.
 # Options are "deployment" or "statefulset".
-# Note: For "deployment" If you are using persistent storage the storage class must support ReadWriteMany. (See persistence section below)
-deploymentMode: "deployment"
+# Note: For "deployment" If you are using persistent storage, the storage class must support ReadWriteMany. (See persistence section below)
+deploymentMode: "statefulset"
 
 # Configuration for the unifi-exporter application.
 config:
   logLevel: informational
   timezone: UTC
   loki:
-    url: http://loki:3100
+    url: "http://loki:3100"
   geoip:
     accountId: ""   # Required for GeoIP lookups.
     licenseKey: ""  # Required for GeoIP lookups.
@@ -23,7 +23,7 @@ dashboards:
   enabled: false
   namespace: "" # Optional: If set, the dashboards will be created in this namespace.
   label: grafana_dashboard
-  labelValue: "1"
+  labelValue: "true"
   # If your grafana sidecar is configured to use folderAnnotations, you can set the folder annotation and value here.
   folderAnnotation: ""
   folderValue: ""
@@ -268,3 +268,94 @@ tolerations: []
 # Affinity rules for the pod.
 # For more information checkout: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
 affinity: {}
+
+# Configure Loki Sub Chart
+# This is meant to provide a basic Loki deployment to test the unifi-exporter
+# Consider moving to a dedicated Loki deployment for production use
+# For more information on the Loki chart, see: https://github.com/grafana/loki/tree/main/production/helm/loki
+loki:
+  enabled: false
+  loki:
+    auth_enabled: false
+    commonConfig:
+      replication_factor: 1
+    schemaConfig:
+      configs:
+        - from: 2024-04-01
+          store: tsdb
+          object_store: s3
+          schema: v13
+          index:
+            prefix: loki_index_
+            period: 24h
+    ingester:
+      chunk_encoding: snappy
+    tracing:
+      enabled: true
+    querier:
+      max_concurrent: 2
+  deploymentMode: SingleBinary
+  singleBinary:
+    replicas: 1
+    resources:
+      limits:
+        cpu: 3
+        memory: 4Gi
+      requests:
+        cpu: 2
+        memory: 2Gi
+    extraEnv:
+      - name: GOMEMLIMIT
+        value: 3750MiB
+  chunksCache:
+    writebackSizeLimit: 10MB
+  minio:
+    enabled: true
+  backend:
+    replicas: 0
+  read:
+    replicas: 0
+  write:
+    replicas: 0
+
+  ingester:
+    replicas: 0
+  querier:
+    replicas: 0
+  queryFrontend:
+    replicas: 0
+  queryScheduler:
+    replicas: 0
+  distributor:
+    replicas: 0
+  compactor:
+    replicas: 0
+  indexGateway:
+    replicas: 0
+  bloomCompactor:
+    replicas: 0
+  bloomGateway:
+    replicas: 0
+
+
+# Configure Grafana Sub Chart
+# This is meant to provide a basic Grafana deployment to test the unifi-exporter
+# Consider moving to a dedicated Grafana deployment for production use
+# For more information on the Grafana chart, see: https://github.com/grafana/helm-charts/tree/main/charts/grafana
+grafana:
+  enabled: false
+  adminUser: admin
+  adminPassword: admin
+  plugins:
+    - grafana-piechart-panel
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      labelValue: "true"
+      provider:
+        allowUiUpdates: true
+    datasources:
+      enabled: true
+      label: grafana_datasource
+      labelValue: "true"

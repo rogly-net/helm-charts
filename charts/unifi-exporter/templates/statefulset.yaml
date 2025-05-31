@@ -88,7 +88,11 @@ spec:
             - name: TZ
               value: {{ .Values.config.timezone | quote }}
             - name: LOKI_URL
+              {{- if .Values.loki.enabled }}
+              value: http://{{ .Release.Name }}-loki-gateway:{{ .Values.loki.gateway.service.port }}
+              {{- else }}
               value: {{ .Values.config.loki.url | quote }}
+              {{- end }}
             {{- if .Values.config.geoip.accountId }}
             - name: GEOIP_ACCOUNT_ID
               value: {{ .Values.config.geoip.accountId | quote }}
