@@ -224,7 +224,7 @@
               "options": "source"
             },
             "name": "Source",
-            "tooltip": false,
+            "tooltip": true,
             "type": "markers"
           },
           {
