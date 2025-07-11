@@ -66,9 +66,18 @@ serviceAccount:
 # This is for setting Kubernetes Annotations to a Pod.
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 podAnnotations: {}
+
 # This is for setting Kubernetes Labels to a Pod.
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 podLabels: {}
+
+# This is for setting Kubernetes Annotations to the Deployment/StatefulSet.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+deploymentAnnotations: {}
+
+# This is for setting Kubernetes Labels to the Deployment/StatefulSet.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+deploymentLabels: {}
 
 podSecurityContext: {}
   # fsGroup: 2000
