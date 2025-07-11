@@ -2,6 +2,27 @@ apiVersion: v1
 entries:
   unifi-exporter:
   - apiVersion: v2
+    appVersion: v1.0.1
+    created: "2025-07-11T13:52:21.517122057Z"
+    dependencies:
+    - alias: loki
+      condition: loki.enabled
+      name: loki
+      repository: https://grafana.github.io/helm-charts
+      version: 6.31.0
+    - alias: grafana
+      condition: grafana.enabled
+      name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 9.2.10
+    description: A Helm chart for deploying the Unifi Exporter to Kubernetes.
+    digest: d274a38b82333a69f79d3eedad54d86613f5139dee4eb46d8c9b64cbc12e16ac
+    name: unifi-exporter
+    type: application
+    urls:
+    - https://github.com/rogly-net/helm-charts/releases/download/unifi-exporter-1.0.2/unifi-exporter-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
     appVersion: v1.0.0
     created: "2025-06-11T21:12:49.746575915Z"
     dependencies:
@@ -32,4 +53,4 @@ entries:
     urls:
     - https://github.com/rogly-net/helm-charts/releases/download/unifi-exporter-1.0.0/unifi-exporter-1.0.0.tgz
     version: 1.0.0
-generated: "2025-06-11T21:12:49.746592617Z"
+generated: "2025-07-11T13:52:21.517140241Z"
