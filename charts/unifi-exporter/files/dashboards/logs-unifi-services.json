@@ -18,23 +18,10 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 30,
+  "id": 31,
   "links": [],
   "panels": [
     {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 0
-      },
-      "id": 14,
-      "panels": [],
-      "title": "Global (No Filters)",
-      "type": "row"
-    },
-    {
       "datasource": {
         "type": "loki",
         "uid": "${datasource}"
@@ -44,1027 +31,6 @@
           "color": {
             "fixedColor": "text",
             "mode": "fixed"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "fillOpacity": 80,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineWidth": 1,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 1
-      },
-      "id": 12,
-      "options": {
-        "barRadius": 0,
-        "barWidth": 0.97,
-        "fullHighlight": false,
-        "groupWidth": 0.7,
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "orientation": "auto",
-        "showValue": "auto",
-        "stacking": "none",
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        },
-        "xTickLabelRotation": 0,
-        "xTickLabelSpacing": 100
-      },
-      "pluginVersion": "11.6.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${datasource}"
-          },
-          "direction": "backward",
-          "editorMode": "builder",
-          "expr": "sum(count_over_time({job=\"$job\"} [$__auto]))",
-          "legendFormat": "{{auto}}",
-          "queryType": "range",
-          "refId": "A",
-          "step": "$smooth"
-        }
-      ],
-      "title": "Log Volume",
-      "type": "barchart"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${datasource}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "text",
-            "mode": "fixed"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 0,
-        "y": 7
-      },
-      "id": 2,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.6.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${datasource}"
-          },
-          "direction": "backward",
-          "editorMode": "builder",
-          "expr": "sum(count_over_time({job=\"$job\"} [$__auto]))",
-          "legendFormat": "Logs",
-          "queryType": "instant",
-          "refId": "A",
-          "step": "$smooth"
-        }
-      ],
-      "title": "Total Logs",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${datasource}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "dark-red",
-            "mode": "fixed"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "min": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "text"
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 3,
-        "x": 6,
-        "y": 7
-      },
-      "id": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.6.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${datasource}"
-          },
-          "direction": "backward",
-          "editorMode": "builder",
-          "expr": "sum(count_over_time({job=\"$job\", level=\"critical\"} [$__auto]))",
-          "legendFormat": "Logs",
-          "queryType": "instant",
-          "refId": "A",
-          "step": "$smooth"
-        }
-      ],
-      "title": "Critical Logs",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${datasource}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "super-light-red",
-            "mode": "fixed"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "min": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "text"
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 3,
-        "x": 9,
-        "y": 7
-      },
-      "id": 7,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.6.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${datasource}"
-          },
-          "direction": "backward",
-          "editorMode": "builder",
-          "expr": "sum(count_over_time({job=\"$job\", level=\"error\"} [$__auto]))",
-          "legendFormat": "Logs",
-          "queryType": "instant",
-          "refId": "A",
-          "step": "$smooth"
-        }
-      ],
-      "title": "Error Logs",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${datasource}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "orange",
-            "mode": "fixed"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "min": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "text"
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 3,
-        "x": 12,
-        "y": 7
-      },
-      "id": 8,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.6.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${datasource}"
-          },
-          "direction": "backward",
-          "editorMode": "builder",
-          "expr": "sum(count_over_time({job=\"$job\", level=\"warning\"} [$__auto]))",
-          "legendFormat": "Logs",
-          "queryType": "instant",
-          "refId": "A",
-          "step": "$smooth"
-        }
-      ],
-      "title": "Warning Logs",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${datasource}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "green",
-            "mode": "fixed"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "min": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "text"
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 3,
-        "x": 15,
-        "y": 7
-      },
-      "id": 10,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.6.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${datasource}"
-          },
-          "direction": "backward",
-          "editorMode": "builder",
-          "expr": "sum(count_over_time({job=\"$job\", level=\"informational\"} [$__auto]))",
-          "legendFormat": "Logs",
-          "queryType": "instant",
-          "refId": "A",
-          "step": "$smooth"
-        }
-      ],
-      "title": "Info Logs",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${datasource}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "blue",
-            "mode": "fixed"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "min": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "text"
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 3,
-        "x": 18,
-        "y": 7
-      },
-      "id": 9,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.6.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${datasource}"
-          },
-          "direction": "backward",
-          "editorMode": "builder",
-          "expr": "sum(count_over_time({job=\"$job\", level=\"notice\"} [$__auto]))",
-          "legendFormat": "Logs",
-          "queryType": "instant",
-          "refId": "A",
-          "step": "$smooth"
-        }
-      ],
-      "title": "Notice Logs",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${datasource}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "purple",
-            "mode": "fixed"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "min": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "text"
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 3,
-        "x": 21,
-        "y": 7
-      },
-      "id": 11,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.6.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${datasource}"
-          },
-          "direction": "backward",
-          "editorMode": "builder",
-          "expr": "sum(count_over_time({job=\"$job\", level=\"debug\"} [$__auto]))",
-          "legendFormat": "Logs",
-          "queryType": "instant",
-          "refId": "A",
-          "step": "$smooth"
-        }
-      ],
-      "title": "Debug Logs",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "purple",
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 6,
-        "x": 0,
-        "y": 15
-      },
-      "id": 15,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "percent"
-          ]
-        },
-        "pieType": "pie",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${datasource}"
-          },
-          "direction": "backward",
-          "editorMode": "builder",
-          "expr": "sum by(type) (count_over_time({job=\"$job\"} [$__auto]))",
-          "legendFormat": "{{auto}}",
-          "queryType": "range",
-          "refId": "A",
-          "step": "$smooth"
-        }
-      ],
-      "title": "Logs By Type",
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "purple",
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/critical/"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "dark-red",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/error/"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "super-light-red",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/warning/"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "orange",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/informational/"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/notice/"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "blue",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/debug/"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "purple",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/Value/"
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": true,
-                  "tooltip": true,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 6,
-        "x": 6,
-        "y": 15
-      },
-      "id": 16,
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "percent"
-          ]
-        },
-        "pieType": "pie",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${datasource}"
-          },
-          "direction": "backward",
-          "editorMode": "builder",
-          "expr": "sum by(level) (count_over_time({job=\"$job\"} [$__auto]))",
-          "legendFormat": "{{auto}}",
-          "queryType": "range",
-          "refId": "A",
-          "step": "$smooth"
-        }
-      ],
-      "title": "Logs By Level",
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "purple",
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/Value/"
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": true,
-                  "tooltip": true,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 6,
-        "x": 12,
-        "y": 15
-      },
-      "id": 17,
-      "options": {
-        "displayLabels": [],
-        "legend": {
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "percent"
-          ]
-        },
-        "pieType": "pie",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${datasource}"
-          },
-          "direction": "backward",
-          "editorMode": "builder",
-          "expr": "sum by(facility) (count_over_time({job=\"$job\"} [$__auto]))",
-          "legendFormat": "{{auto}}",
-          "queryType": "range",
-          "refId": "A",
-          "step": "$smooth"
-        }
-      ],
-      "title": "Logs By Facility",
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "purple",
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/Value/"
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": true,
-                  "tooltip": true,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 6,
-        "x": 18,
-        "y": 15
-      },
-      "id": 19,
-      "options": {
-        "displayLabels": [],
-        "legend": {
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "percent"
-          ]
-        },
-        "pieType": "pie",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${datasource}"
-          },
-          "direction": "backward",
-          "editorMode": "builder",
-          "expr": "sum by(hostname) (count_over_time({job=\"$job\"} [$__auto]))",
-          "legendFormat": "{{auto}}",
-          "queryType": "range",
-          "refId": "A",
-          "step": "$smooth"
-        }
-      ],
-      "title": "Logs By Hostname",
-      "type": "piechart"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 25
-      },
-      "id": 13,
-      "panels": [],
-      "title": "Filtered",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "purple",
-            "mode": "palette-classic"
           },
           "custom": {
             "axisBorderShow": false,
@@ -1101,6 +67,77 @@
             ]
           }
         },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "normal",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum(count_over_time({job=\"$job\", type!~\"$type\", hostname=~\"$hostname\", service_name=~\"$service\", facility=~\"$facility\", level=~\"$level\"} [$__auto]))",
+          "legendFormat": "Logs",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "Total Log Volume",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "super-light-purple",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "noValue": "0"
+        },
         "overrides": [
           {
             "matcher": {
@@ -1211,12 +248,210 @@
         ]
       },
       "gridPos": {
-        "h": 9,
-        "w": 8,
+        "h": 8,
+        "w": 4,
         "x": 0,
-        "y": 26
+        "y": 9
       },
-      "id": 20,
+      "id": 11,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "sum by(level) (count_over_time({job=\"$job\", type!~\"$type\", hostname=~\"$hostname\", service_name=~\"$service\", facility=~\"$facility\", level=~\"$level\"} [$__auto]))",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "Log Volume by Level",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "super-light-purple",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/critical/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/error/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "super-light-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/warning/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/informational/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/notice/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/debug/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Value/"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 4,
+        "y": 9
+      },
+      "id": 2,
       "options": {
         "barRadius": 0,
         "barWidth": 0.97,
@@ -1225,7 +460,7 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true
         },
         "orientation": "auto",
@@ -1248,14 +483,14 @@
           },
           "direction": "backward",
           "editorMode": "builder",
-          "expr": "sum by(level) (count_over_time({job=\"$job\", service_name=~\"$service_name\", level=~\"$severity\", hostname=~\"$hostname\", facility=~\"$facility\", type=~\"$type\"} [$__auto]))",
+          "expr": "sum by(level) (count_over_time({job=\"$job\", type!~\"$type\", hostname=~\"$hostname\", service_name=~\"$service\", facility=~\"$facility\", level=~\"$level\"} [$__auto]))",
           "legendFormat": "{{auto}}",
           "queryType": "range",
           "refId": "A",
           "step": "$smooth"
         }
       ],
-      "title": "Log Volume By Level",
+      "title": "Log Volume by Level",
       "type": "barchart"
     },
     {
@@ -1266,7 +501,97 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic-by-name"
+            "fixedColor": "super-light-purple",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "noValue": "0"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Value/"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 12,
+        "y": 9
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "sum by(facility) (count_over_time({job=\"$job\", type!~\"$type\", hostname=~\"$hostname\", service_name=~\"$service\", facility=~\"$facility\", level=~\"$level\"} [$__auto]))",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "Log Volume by Facility",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "super-light-purple",
+            "mode": "palette-classic"
           },
           "custom": {
             "axisBorderShow": false,
@@ -1290,6 +615,7 @@
             }
           },
           "mappings": [],
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1319,10 +645,10 @@
         ]
       },
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 8,
-        "x": 8,
-        "y": 26
+        "x": 16,
+        "y": 9
       },
       "id": 4,
       "options": {
@@ -1333,10 +659,10 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true
         },
-        "orientation": "vertical",
+        "orientation": "auto",
         "showValue": "auto",
         "stacking": "normal",
         "tooltip": {
@@ -1356,14 +682,14 @@
           },
           "direction": "backward",
           "editorMode": "builder",
-          "expr": "sum by(service_name) (count_over_time({job=\"$job\", service_name=~\"$service_name\", level=~\"$severity\", hostname=~\"$hostname\", facility=~\"$facility\", type=~\"$type\"} [$__auto]))",
-          "legendFormat": "{{service_name}}",
+          "expr": "sum by(facility) (count_over_time({job=\"$job\", type!~\"$type\", hostname=~\"$hostname\", service_name=~\"$service\", facility=~\"$facility\", level=~\"$level\"} [$__auto]))",
+          "legendFormat": "{{auto}}",
           "queryType": "range",
           "refId": "A",
           "step": "$smooth"
         }
       ],
-      "title": "Log Volume By Service",
+      "title": "Log Volume by Facility",
       "type": "barchart"
     },
     {
@@ -1374,7 +700,97 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic-by-name"
+            "fixedColor": "super-light-purple",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "noValue": "0"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Value/"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 0,
+        "y": 17
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "topk(1, sum by(service_name) (count_over_time({job=\"$job\", type!~\"$type\", hostname=~\"$hostname\", service_name=~\"$service\", facility=~\"$facility\", level=~\"$level\"} [$__auto])))",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "Log Volume by Service (Top)",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "super-light-purple",
+            "mode": "palette-classic"
           },
           "custom": {
             "axisBorderShow": false,
@@ -1398,6 +814,7 @@
             }
           },
           "mappings": [],
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1427,10 +844,10 @@
         ]
       },
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 8,
-        "x": 16,
-        "y": 26
+        "x": 4,
+        "y": 17
       },
       "id": 5,
       "options": {
@@ -1441,10 +858,10 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true
         },
-        "orientation": "vertical",
+        "orientation": "auto",
         "showValue": "auto",
         "stacking": "normal",
         "tooltip": {
@@ -1464,14 +881,213 @@
           },
           "direction": "backward",
           "editorMode": "builder",
-          "expr": "sum by(hostname) (count_over_time({job=\"$job\", service_name=~\"$service|$service_name\", level=~\"$severity\", hostname=~\"$hostname\", facility=~\"$facility\", type=~\"$type\"} [$__auto]))",
-          "legendFormat": "{{hostname}}",
+          "expr": "sum by(service_name) (count_over_time({job=\"$job\", type!~\"$type\", hostname=~\"$hostname\", service_name=~\"$service\", facility=~\"$facility\", level=~\"$level\"} [$__auto]))",
+          "legendFormat": "{{auto}}",
           "queryType": "range",
           "refId": "A",
           "step": "$smooth"
         }
       ],
-      "title": "Log Volume By Hostname",
+      "title": "Log Volume by Service",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "super-light-purple",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "noValue": "0"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Value/"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 12,
+        "y": 17
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "sum by(hostname) (count_over_time({job=\"$job\", type!~\"$type\", hostname=~\"$hostname\", service_name=~\"$service\", facility=~\"$facility\", level=~\"$level\"} [$__auto]))",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "Log Volume by Hostname",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "super-light-purple",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Value/"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 17
+      },
+      "id": 6,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "normal",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100
+      },
+      "pluginVersion": "11.6.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${datasource}"
+          },
+          "direction": "backward",
+          "editorMode": "builder",
+          "expr": "sum by(hostname) (count_over_time({job=\"$job\", type!~\"$type\", hostname=~\"$hostname\", service_name=~\"$service\", facility=~\"$facility\", level=~\"$level\"} [$__auto]))",
+          "legendFormat": "{{auto}}",
+          "queryType": "range",
+          "refId": "A",
+          "step": "$smooth"
+        }
+      ],
+      "title": "Log Volume by Hostname",
       "type": "barchart"
     },
     {
@@ -1484,12 +1100,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 13,
+        "h": 18,
         "w": 24,
         "x": 0,
-        "y": 35
+        "y": 25
       },
-      "id": 1,
+      "id": 3,
       "options": {
         "dedupStrategy": "none",
         "enableInfiniteScrolling": false,
@@ -1509,23 +1125,21 @@
             "uid": "${datasource}"
           },
           "direction": "backward",
-          "editorMode": "builder",
-          "expr": "{job=\"$job\", service_name=~\"$service_name\", level=~\"$severity\", hostname=~\"$hostname\", facility=~\"$facility\", type=~\"$type\"}",
-          "maxLines": 100,
+          "editorMode": "code",
+          "expr": "{job=\"$job\", type!~\"$type\", hostname=~\"$hostname\", service_name=~\"$service\", facility=~\"$facility\", level=~\"$level\"}",
           "queryType": "range",
           "refId": "A"
         }
       ],
-      "title": "Last 100 Logs",
+      "title": "Logs",
       "type": "logs"
     }
   ],
   "preload": false,
-  "refresh": "",
   "schemaVersion": 41,
   "tags": [
-    "Unifi",
-    "Loki"
+    "Loki",
+    "Unifi"
   ],
   "templating": {
     "list": [
@@ -1535,6 +1149,7 @@
           "text": "Loki",
           "value": "P8E80F9AEF21F6940"
         },
+        "description": "",
         "label": "Datasource",
         "name": "datasource",
         "options": [],
@@ -1544,19 +1159,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "text": "unifi-exporter",
-          "value": "unifi-exporter"
-        },
-        "description": "",
-        "hide": 2,
-        "label": "Job",
-        "name": "job",
-        "query": "unifi-exporter",
-        "skipUrlSync": true,
-        "type": "constant"
-      },
-      {
         "auto": true,
         "auto_count": 50,
         "auto_min": "1s",
@@ -1564,6 +1166,7 @@
           "text": "$__auto",
           "value": "$__auto"
         },
+        "description": "",
         "label": "Smooth",
         "name": "smooth",
         "options": [
@@ -1648,61 +1251,74 @@
         "type": "interval"
       },
       {
-        "allValue": ".*",
         "allowCustomValue": false,
         "current": {
-          "text": "All",
-          "value": [
-            "$__all"
-          ]
+          "text": "unifi-exporter",
+          "value": "unifi-exporter"
         },
         "datasource": {
           "type": "loki",
-          "uid": "P8E80F9AEF21F6940"
+          "uid": "${datasource}"
         },
         "definition": "",
-        "includeAll": true,
-        "label": "Type",
-        "multi": true,
-        "name": "type",
+        "hide": 2,
+        "label": "Job",
+        "name": "job",
         "options": [],
         "query": {
-          "label": "type",
+          "label": "job",
           "refId": "LokiVariableQueryEditor-VariableQuery",
-          "stream": "{job=\"$job\"}",
+          "stream": "",
           "type": 1
         },
         "refresh": 1,
-        "regex": "",
+        "regex": "unifi-exporter",
         "type": "query"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "flow.*|portforward.*",
+          "value": "flow.*|portforward.*"
+        },
+        "hide": 2,
+        "label": "Type",
+        "name": "type",
+        "options": [
+          {
+            "selected": true,
+            "text": "flow.*|portforward.*",
+            "value": "flow.*|portforward.*"
+          }
+        ],
+        "query": "flow.*|portforward.*",
+        "type": "custom"
       },
       {
         "allValue": ".*",
         "allowCustomValue": false,
         "current": {
           "text": "All",
-          "value": [
-            "$__all"
-          ]
+          "value": "$__all"
         },
         "datasource": {
           "type": "loki",
-          "uid": "P8E80F9AEF21F6940"
+          "uid": "${datasource}"
         },
         "definition": "",
         "description": "",
         "includeAll": true,
-        "label": "Service",
+        "label": "Hostname",
         "multi": true,
-        "name": "service_name",
+        "name": "hostname",
         "options": [],
         "query": {
-          "label": "service_name",
+          "label": "hostname",
           "refId": "LokiVariableQueryEditor-VariableQuery",
-          "stream": "{job=\"$job\"}",
+          "stream": "{job=\"$job\", type!~\"$type\"}",
           "type": 1
         },
-        "refresh": 2,
+        "refresh": 1,
         "regex": "",
         "type": "query"
       },
@@ -1715,48 +1331,18 @@
         },
         "datasource": {
           "type": "loki",
-          "uid": "P8E80F9AEF21F6940"
-        },
-        "definition": "",
-        "description": "",
-        "includeAll": true,
-        "label": "Severity",
-        "multi": true,
-        "name": "severity",
-        "options": [],
-        "query": {
-          "label": "level",
-          "refId": "LokiVariableQueryEditor-VariableQuery",
-          "stream": "{job=\"$job\"}",
-          "type": 1
-        },
-        "refresh": 2,
-        "regex": "",
-        "type": "query"
-      },
-      {
-        "allValue": ".*",
-        "allowCustomValue": false,
-        "current": {
-          "text": "All",
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": {
-          "type": "loki",
-          "uid": "P8E80F9AEF21F6940"
+          "uid": "${datasource}"
         },
         "definition": "",
         "includeAll": true,
-        "label": "Facility",
+        "label": "Service",
         "multi": true,
-        "name": "facility",
+        "name": "service",
         "options": [],
         "query": {
-          "label": "facility",
+          "label": "service_name",
           "refId": "LokiVariableQueryEditor-VariableQuery",
-          "stream": "{job=\"$job\"}",
+          "stream": "{job=\"$job\", type!~\"$type\", hostname=~\"$hostname\"}",
           "type": 1
         },
         "refresh": 1,
@@ -1774,21 +1360,51 @@
         },
         "datasource": {
           "type": "loki",
-          "uid": "P8E80F9AEF21F6940"
+          "uid": "${datasource}"
         },
         "definition": "",
         "includeAll": true,
-        "label": "Hostname",
+        "label": "Facility",
         "multi": true,
-        "name": "hostname",
+        "name": "facility",
         "options": [],
         "query": {
-          "label": "hostname",
+          "label": "facility",
           "refId": "LokiVariableQueryEditor-VariableQuery",
-          "stream": "{job=\"$job\"}",
+          "stream": "{job=\"$job\", type!~\"$type\", hostname=~\"$hostname\", service_name=~\"$service\"}",
           "type": 1
         },
-        "refresh": 2,
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allValue": ".*",
+        "allowCustomValue": false,
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "${datasource}"
+        },
+        "definition": "",
+        "description": "",
+        "includeAll": true,
+        "label": "Level",
+        "multi": true,
+        "name": "level",
+        "options": [],
+        "query": {
+          "label": "level",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{job=\"$job\", type!~\"$type\", hostname=~\"$hostname\", service_name=~\"$service\", facility=~\"$facility\"}",
+          "type": 1
+        },
+        "refresh": 1,
         "regex": "",
         "type": "query"
       }
@@ -1800,7 +1416,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Logs / Unifi / Overview",
-  "uid": "logs-unifi-overview",
+  "title": "Logs / Unifi / Services",
+  "uid": "logs-unifi-services",
   "version": 1
 }
