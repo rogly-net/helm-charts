@@ -2,8 +2,8 @@ apiVersion: v2
 name: unifi-exporter
 description: A Helm chart for deploying the Unifi Exporter to Kubernetes.
 type: application
-version: 1.0.2
-appVersion: "v1.0.2"
+version: 1.0.3
+appVersion: "v1.0.3"
 dependencies:
   - name: loki
     alias: loki

@@ -11,7 +11,7 @@ data:
 {{- if .Values.persistence.configMaps.cefFields }}
 {{ .Values.persistence.configMaps.cefFields | toJson | indent 4 }}
 {{- else }}
-{{ .Files.Get "files/config/cef_severity.json" | indent 4 }}
+{{ .Files.Get "files/config/cef_fields.json" | indent 4 }}
 {{- end }}
 ---
 apiVersion: v1
@@ -26,6 +26,20 @@ data:
 {{ .Values.persistence.configMaps.cefSeverity | toJson | indent 4 }}
 {{- else }}
 {{ .Files.Get "files/config/cef_severity.json" | indent 4 }}
+{{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "unifi-exporter.fullname" . }}-cef-label-fields
+  labels:
+    {{- include "unifi-exporter.labels" . | nindent 4 }}
+data:
+  cef_label_fields.list: |-
+{{- if .Values.persistence.configMaps.cefLabelFields }}
+{{ .Values.persistence.configMaps.cefLabelFields | join "\n" | indent 4 }}
+{{- else }}
+{{ .Files.Get "files/config/cef_label_fields.list" | indent 4 }}
 {{- end }}
 ---
 apiVersion: v1

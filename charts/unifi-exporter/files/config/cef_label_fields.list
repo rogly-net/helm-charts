@@ -1,0 +1,16 @@
+category
+sub_category
+host
+last_connected_to_device_name
+last_connected_to_device_model
+last_connected_to_device_version
+client_alias
+wifi_channel
+wifi_channel_width
+wifi_name
+wifi_band
+network_name
+network_subnet
+network_vlan
+access_method
+admin
